@@ -1,0 +1,111 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IPL Victory Predictor</title>
+    <style>
+        body {
+            background-image: url("data:image/png;base64,{{ img }}");
+            background-size: cover;
+            font-family: Arial, sans-serif;
+            color: white;
+        }
+        .container {
+            max-width: 600px;
+            margin: 100px auto;
+            padding: 20px;
+            background: rgba(0, 0, 0, 0.7);
+            border-radius: 10px;
+        }
+        h1 {
+            text-align: center;
+        }
+        label, select, input {
+            display: block;
+            width: 100%;
+            margin-bottom: 10px;
+            
+        }
+        input[type="number"], input[type="text"], select {
+            padding: 10px;
+            border-radius: 5px;
+            border: none;
+            
+        }
+        button {
+            padding: 10px;
+            background: #007bff;
+            border: none;
+            color: black;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+        }
+        .result {
+            text-align: center;
+            margin-top: 20px;
+        }
+        .error {
+            color: red;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>IPL Victory Predictor</h1>
+        <form method="post">
+            <label for="batting_team">Select Batting Team</label>
+            <select id="batting_team" name="batting_team" required>
+                {% for team in teams %}
+                    <option value="{{ team }}">{{ team }}</option>
+                {% endfor %}
+            </select>
+
+            <label for="bowling_team">Select Bowling Team</label>
+            <select id="bowling_team" name="bowling_team" required>
+                {% for team in teams %}
+                    <option value="{{ team }}">{{ team }}</option>
+                {% endfor %}
+            </select>
+
+            <label for="city">Select Venue</label>
+            <select id="city" name="city" required>
+                {% for city in cities %}
+                    <option value="{{ city }}">{{ city }}</option>
+                {% endfor %}
+            </select>
+
+            <label for="target">Target</label>
+            <input type="number" id="target" name="target" required>
+
+            <label for="score">Score</label>
+            <input type="number" id="score" name="score" required>
+
+            <label for="overs">Overs Completed</label>
+            <input type="text" id="overs" name="overs" required>
+
+            <label for="wickets">Wickets Down</label>
+            <input type="number" id="wickets" name="wickets" required>
+
+            <button type="submit">Predict Winning Probability</button>
+        </form>
+
+        {% if result %}
+        <div class="result">
+            <h2>{{ result.batting_team }} = {{ result.win_percentage }}%</h2>
+            <h2>{{ result.bowling_team }} = {{ result.loss_percentage }}%</h2>
+        </div>
+        {% endif %}
+
+        {% if error %}
+        <div class="error">
+            <p>{{ error }}</p>
+        </div>
+        {% endif %}
+    </div>
+    <h2><center>Created By <b>Prasanth</b> </center></h2>
+</body>
+</html>
